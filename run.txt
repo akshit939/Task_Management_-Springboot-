@@ -1,0 +1,4 @@
+1) open the folder in vs code
+2) html file as live server
+3) open backend in intellij
+4) run the springboot 

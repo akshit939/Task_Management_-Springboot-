@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <nav id="navbar">
+        <li id="home">Home</li>
+        <li id="login">Login</li>
+        <li id="register">Register</li>
+    </nav>
+    <div class="page">
+        <h1>This is tsk management home page
+
+        </h1>
+
+
+    </div>
+
+    <div class="addtaskform">
+        <form class="addtaskinform" method="post">
+            <label>Task Name</label>
+            <input type="text" name="" id="taskname" required>
+            <label>Task Description</label>
+            <textarea name="" id="taskdesc" cols="30" rows="10" required></textarea>
+            <label>Set Date and Time to Complete</label>
+            <input type="datetime-local" name="" id="datetime" required>
+            <input type="submit" value="Add Task" id="submittask">
+            <input type="button" value="Cancel" id="canceltask">
+
+        </form>
+    </div>
+
+    <script src="srcript.js"></script>
+</body>
+
+</html>

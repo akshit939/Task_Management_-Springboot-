@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Draggable Map</title>
+    <style>
+        #map-container {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+        #map {
+            width: 500%;
+            height: 500%;
+            position: absolute;
+            cursor: grab; /* Cursor when not dragging */
+        }
+        #map:active {
+            cursor: grabbing; /* Cursor when dragging */
+        }
+    </style>
+</head>
+<body>
+    <div id="map-container">
+        <img id="map" src="https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg" alt="Map">
+    </div>
+
+    <script>
+        // Initialize dragging state
+        let isDragging = false;
+        let startX, startY, offsetX = 0, offsetY = 0;
+
+        const map = document.getElementById('map');
+        const mapContainer = document.getElementById('map-container');
+
+        // Mouse down event to start dragging
+        map.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            map.style.cursor = 'grabbing'; // Change cursor to grabbing
+        });
+
+        // Mouse move event to update map position
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+                offsetX += dx;
+                offsetY += dy;
+                map.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+                startX = e.clientX;
+                startY = e.clientY;
+            }
+        });
+
+        // Mouse up event to stop dragging
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                map.style.cursor = 'grab'; // Change cursor back to grab
+            }
+        });
+
+        // Optional: Prevent dragging from going outside the container
+        map.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                // Clamp the map position within the container
+                const rect = map.getBoundingClientRect();
+                const containerRect = mapContainer.getBoundingClientRect();
+                if (rect.left > containerRect.left) {
+                    offsetX -= rect.left - containerRect.left;
+                }
+                if (rect.right < containerRect.right) {
+                    offsetX += containerRect.right - rect.right;
+                }
+                if (rect.top > containerRect.top) {
+                    offsetY -= rect.top - containerRect.top;
+                }
+                if (rect.bottom < containerRect.bottom) {
+                    offsetY += containerRect.bottom - rect.bottom;
+                }
+                map.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
